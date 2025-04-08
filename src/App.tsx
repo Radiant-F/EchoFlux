@@ -1,23 +1,51 @@
-import { Container, Typography } from "@mui/material";
-import { TranslatorController } from "./components/TranslatorController";
-import { Translation } from "./components/Translation";
-import { Customization } from "./components/Customization";
+import {
+  Container,
+  Stack,
+  Typography,
+  useTheme,
+  useMediaQuery,
+  ThemeProvider,
+  CssBaseline,
+} from "@mui/material";
+import Language from "./components/Language";
+import Translation from "./components/Translation";
+import Apperance from "./components/Appearance";
+import Control from "./components/Control";
+import { lightTheme, darkTheme } from "./constant";
+import { useMemo } from "react";
+import { useAppSelector } from "./hooks";
 
 export default function App() {
+  const theme = useTheme();
+  const isLargeScreen = useMediaQuery(theme.breakpoints.up("lg"));
+  const { theme_mode } = useAppSelector((state) => state.utils);
+
+  const themeMode = useMemo(
+    () => (theme_mode == "light" ? lightTheme : darkTheme),
+    [theme_mode]
+  );
+
   return (
-    <Container>
-      <Typography variant="h4" gutterBottom>
-        Echo Flux - Seamless Live Translator
-      </Typography>
+    <ThemeProvider theme={themeMode}>
+      <CssBaseline />
+      <Container>
+        <Typography mt={5} variant="h4" textAlign={"center"}>
+          Echo Flux
+        </Typography>
+        <Typography mb={5} textAlign={"center"}>
+          Seamless Live Translator
+        </Typography>
 
-      {/* Languages & Mic toggle */}
-      <TranslatorController />
+        <Stack direction={isLargeScreen ? "row" : "column"} spacing={5} mb={5}>
+          <Language />
 
-      {/* Styling Controls */}
-      <Customization />
+          <Apperance />
 
-      {/* Translation Display */}
-      <Translation />
-    </Container>
+          {!isLargeScreen && <Control />}
+        </Stack>
+
+        <Translation />
+      </Container>
+    </ThemeProvider>
   );
 }
