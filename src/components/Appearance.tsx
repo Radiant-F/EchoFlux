@@ -41,6 +41,7 @@ const VisuallyHiddenInput = styled("input")({
 });
 
 export default function Appearance() {
+  const dispatch = useAppDispatch();
   const {
     backgroundColor,
     fontColor,
@@ -51,7 +52,6 @@ export default function Appearance() {
     translationAlignment,
   } = useAppSelector((state) => state.typography);
   const { theme_mode } = useAppSelector((state) => state.utils);
-  const dispatch = useAppDispatch();
 
   const handleFontUpload = async (
     event: React.ChangeEvent<HTMLInputElement>
