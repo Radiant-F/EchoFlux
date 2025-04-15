@@ -27,3 +27,16 @@ export const fontFamilies = [
   "Custom",
 ] as const;
 export type FontFamilyName = (typeof fontFamilies)[number];
+
+import { createTheme } from "@mui/material/styles";
+export const lightTheme = createTheme({
+  palette: {
+    mode: "light",
+  },
+});
+
+export const darkTheme = createTheme({
+  palette: {
+    mode: "dark",
+  },
+});
