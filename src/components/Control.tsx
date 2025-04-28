@@ -203,11 +203,8 @@ export default function Control() {
             color={listening ? "secondary" : "primary"}
             onClick={() => {
               dispatch(setListening(!listening));
-              if (listening) {
-                stopListening();
-              } else {
-                startListening();
-              }
+              if (listening) stopListening();
+              else startListening();
             }}
             startIcon={listening ? <MicOff /> : <Mic />}
           >
